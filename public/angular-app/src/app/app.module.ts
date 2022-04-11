@@ -9,6 +9,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ShipsComponent } from './ships/ships.component';
 import { ShipComponent } from './ship/ship.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
+import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -17,15 +20,22 @@ import { HomeComponent } from './home/home.component';
     NavigationComponent,
     ShipsComponent,
     ShipComponent,
-    HomeComponent
+    HomeComponent,
+    ErrorpageComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
       {
         path: "",
         component: HomeComponent
+      },
+      {
+        path: "search",
+        component: SearchComponent
       },
       {
         path: "ships",
@@ -34,6 +44,10 @@ import { HomeComponent } from './home/home.component';
       {
         path: "ships/:shipId",
         component: ShipComponent
+      },
+      {
+        path: "**",
+        component: ErrorpageComponent
       }
     ])
   ],

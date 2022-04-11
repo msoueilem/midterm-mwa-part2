@@ -11,8 +11,15 @@ export class ShipsDataService {
 
   constructor(private http:HttpClient) { }
 
-  public getShips(): Promise<Ship[]> {
-    const url: string= this.apiBaseUrl + "/ships";
+  public getShips(counter:string,skip?:string): Promise<Ship[]> {
+  
+    let url!: string
+    if(skip){
+      url= this.apiBaseUrl + "/ships/?counter="+counter+"&offset="+skip;
+    }else{
+      // url= this.apiBaseUrl + "/ships/?counter="+counter;
+      url= this.apiBaseUrl + "/ships/?counter="+counter+"&offset="+0;
+    }
     
     return this.http.get(url).toPromise()
                 // .then(response => {console.log(response); response as Ship[]})

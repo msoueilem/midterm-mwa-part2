@@ -2,7 +2,17 @@ const mongoose = require("mongoose");
 const Ship = mongoose.model(process.env.SHIP_MODEL);
 
 const getAll = function (req, res) {
-    Ship.find().exec(function (err, ships) {
+    let counter = parseInt(req.query.counter,10)
+    let offset=0
+    let skip = parseInt(req.query.offset,10)
+    if(skip<0){
+        counter=5
+        offset=0
+    }else{
+        counter=5
+        offset=skip
+    }
+    Ship.find().skip(offset).limit(counter).exec(function (err, ships) {
         const response = {
             status: parseInt(process.env.REST_API_OK, 10),
             message: ships

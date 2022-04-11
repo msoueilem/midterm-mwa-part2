@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { ShipsDataService } from '../ships-data.service';
 
 export class Ship {
@@ -50,12 +51,33 @@ export class Ship {
 export class ShipsComponent implements OnInit {
 
   ships!: Ship[];
+  counter!: string
 
-  constructor(private shipService:ShipsDataService) { }
+  constructor(private shipService:ShipsDataService, private router:Router) {
+    this.counter = "5"
+   }
 
   ngOnInit(): void {
-    this.shipService.getShips().then(response => this.fillShipsFromService(response));
+    this.shipService.getShips(this.counter).then(response => this.fillShipsFromService(response));
   }
+  
+  fetchData():void{
+    this.shipService.getShips(this.counter).then(response => this.fillShipsFromService(response));
+    this.router.navigate(["ships"])
+  }
+  previousList():void{
+    let offset = parseInt(this.counter,10)+5
+    this.shipService.getShips(this.counter,offset+"").then(response => this.fillShipsFromService(response));
+    this.router.navigate(["ships"])
+    
+  }
+  nextList():void{
+    let offset = parseInt(this.counter,10)+5
+    this.shipService.getShips(this.counter,offset+"").then(response => this.fillShipsFromService(response));
+    this.router.navigate(["ships"])
+
+  }
+
 
   private fillShipsFromService(ships: Ship[]) {   
     this.ships= ships;

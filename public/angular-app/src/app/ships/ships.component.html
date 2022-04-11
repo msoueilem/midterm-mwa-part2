@@ -1,3 +1,13 @@
+Number of ships to display each page 
+<form #shipcount="ngForm" (ngSubmit)="fetchData()">
+<select name="counter" [(ngModel)]=counter>
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+</select>
+ <button type="submit">check</button> 
+</form>
 The list of Ships are:<br/>
 
 <ul>
@@ -5,3 +15,7 @@ The list of Ships are:<br/>
         <a routerLink="{{ship._id}}">{{ship.depth}} - {{ship.coordinates}}</a>
     </li>
 </ul>
+
+<button (click)="previousList()"> <"Previous</button> 
+<button (click)="nextList()">Next></button> 
+
