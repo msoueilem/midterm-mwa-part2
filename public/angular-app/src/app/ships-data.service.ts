@@ -33,6 +33,17 @@ export class ShipsDataService {
                 // .then(response => {console.log(response); response as Ship})
                 .catch(this.handleError);
   }
+  
+  public geoSearch(lng: string, lat:string,dis:string): Promise<Ship[]> {
+    const url: string= this.apiBaseUrl + "/search/?lng=" + lng+"&lat="+lat+"&dis="+dis;
+
+    console.log("url",url);
+    
+    
+    return this.http.get(url).toPromise()
+                // .then(response => {console.log(response); response as Ship})
+                .catch(this.handleError);
+  }
 
   private handleError(error: any):Promise<any> {
     return Promise.reject(error.message || error);

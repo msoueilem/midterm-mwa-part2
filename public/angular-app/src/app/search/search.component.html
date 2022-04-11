@@ -1,1 +1,26 @@
-<p>search works!</p>
+<form #searchForm="ngForm" (onSubmit)="searchGeo()">
+
+    <div>
+        <label for="latitude">Laditude:</label>
+        <input type="text" name="latitude" class="form-control" [(ngModel)] = latitude>
+    </div>
+    <div>
+        <label for="longitude">Longitude:</label>
+        <input type="text" name="longitude" class="form-control" [(ngModel)] = longitude>
+    </div>
+    <div>
+        <label for="distance">Distance:</label>
+        <input type="text" name="distance" class="form-control" [(ngModel)] = distance>
+    </div>
+    <div>
+        <button (click)="searchGeo()"> Search</button>
+    </div>
+</form>
+
+<div>
+    <ul>
+        <li *ngFor="let ship of ships">
+            <a routerLink="{{ship._id}}" > {{ship.depth}} </a>
+        </li>
+    </ul>
+</div>

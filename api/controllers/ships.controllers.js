@@ -1,6 +1,31 @@
 const mongoose = require("mongoose");
 const Ship = mongoose.model(process.env.SHIP_MODEL);
 
+const geoSearch = function(req,res){
+    // const offset = parseFloat(req.querry.offset,10)
+    // const count = parseFloat(req.querry.count,10)
+    const lng = parseFloat(req.query.lng, 10)
+    const lat = parseFloat(req.query.lat, 10)
+    const dis = parseFloat(req.query.dis, 10)
+    const point = {type:"Point",
+coordinates: [lng,lat]}
+    const querry = {
+        "coordinates":{
+            $near:{
+                $geometry:point,
+                $minDistance: 0,
+                $maxDistance: dis
+            }
+        }
+    }
+    Ship.find(querry).skip(0).limit(5).exec(function(err,ship){
+        if(err){
+            res.status(500).json(err)
+        }else{
+            res.status(200).json(ship)
+        }
+    })
+}
 const getAll = function (req, res) {
     let counter = parseInt(req.query.counter,10)
     let offset=0
@@ -47,5 +72,6 @@ const getOne = function (req, res) {
 
 module.exports = {
     getAll: getAll,
-    getOne: getOne
+    getOne: getOne,
+    geoSearch: geoSearch,
 };

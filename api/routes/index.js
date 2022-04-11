@@ -5,6 +5,9 @@ const shipsController= require("../controllers/ships.controllers");
 
 router.route("/ships")
         .get(shipsController.getAll);
+        
+router.route("/search")
+        .get(shipsController.geoSearch);
 
 router.route("/ships/:shipId")
         .get(shipsController.getOne);
